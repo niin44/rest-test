@@ -1,10 +1,10 @@
 -------------------------------------------------------------------------------
 Test set: se.nackademin.rest.test.TestPut
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.349 sec <<< FAILURE!
-testUpdateBook(se.nackademin.rest.test.TestPut)  Time elapsed: 2.235 sec  <<< ERROR!
-java.lang.NoSuchMethodError: se.nackademin.rest.test.BookOperations.updateBook(I)Lcom/jayway/restassured/response/Response;
-	at se.nackademin.rest.test.TestPut.testUpdateBook(TestPut.java:31)
+Tests run: 5, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.072 sec <<< FAILURE!
+testUpdateBooksAuthor(se.nackademin.rest.test.TestPut)  Time elapsed: 0.028 sec  <<< ERROR!
+java.lang.NullPointerException
+	at se.nackademin.rest.test.TestPut.testUpdateBooksAuthor(TestPut.java:46)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

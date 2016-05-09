@@ -5,13 +5,14 @@
  */
 package se.nackademin.rest.test;
 
+
 import static com.jayway.restassured.RestAssured.*;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import java.util.UUID;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import se.nackademin.rest.test.model.Book;
-import se.nackademin.rest.test.model.SingleBook;
+import se.nackademin.rest.test.model.*;
 
 /**
  *
@@ -19,27 +20,39 @@ import se.nackademin.rest.test.model.SingleBook;
  */
 public class TestPut {
     private static final String BASE_URL = "http://localhost:8080/librarytest/rest/";
-    
+    BookOperations bookOp = new BookOperations();
     @Test
     public void testUpdateBook(){
-        Response postResponse = new BookOperations().createRandomBook();
-        assertEquals("post response should have status code 201",201,postResponse.statusCode());
+        Book book = bookOp.getBook(3).getBook();
+        SingleAuthor singleAuthor = bookOp.getAuthorByBookId(3);
+        book.setAuthor(singleAuthor.getAuthor());
+        book.setDescription(UUID.randomUUID().toString());
+        System.out.println(book.getDescription());
         
-        Response getResponse = new BookOperations().getAllBooks();
-        int fetchedId = getResponse.jsonPath().getInt("books.book[-1].id");
+        SingleBook singleBook = new SingleBook(book);
         
-        Response updateResponse = new BookOperations().updateBook(fetchedId);
-        assertEquals("delete methodo should return 204", 204, updateResponse.getStatusCode());
+        Response putResponse = bookOp.updateBook(singleBook);
+        assertEquals("Should return 200", 200, putResponse.getStatusCode());
         
-        Response getUpdatedBookResponse = new BookOperations().getBook(fetchedId);
-        assertEquals("fetching delted book should return 404", 404, getUpdatedBookResponse.getStatusCode());
-        
-        
+        Book updatedBook = bookOp.getBook(3).getBook();
+        assertEquals("Description should be updated", book.getDescription(), updatedBook.getDescription());
     }
+    //*
     @Test
-    public void testUpdateBooksAuthor(){
+    public void testUpdateBooksAuthor() {
+        int bookId = 3;
+        SingleAuthor singleAuthor = bookOp.getAuthorByBookId(bookId);
+        Author author = singleAuthor.getAuthor();
+        author.setName(UUID.randomUUID().toString());
+        System.out.println("Author: " + author.getName());
         
-    }
+        singleAuthor = new SingleAuthor(author);
+        Response putResponse = bookOp.updateBooksAuthor(singleAuthor, bookId);
+        assertEquals("Should return status code 200", 200, putResponse.getStatusCode());
+
+        Author updatedAuthor = bookOp.getAuthorByBookId(bookId).getAuthor();
+        assertEquals("Should return new name", author.getName(), updatedAuthor.getName());
+    }//*/
     @Test
     public void testUpdateAuthors(){
         

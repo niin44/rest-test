@@ -9,8 +9,7 @@ import org.junit.Test;
 import static com.jayway.restassured.RestAssured.*;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
-import se.nackademin.rest.test.model.Book;
-import se.nackademin.rest.test.model.SingleBook;
+import se.nackademin.rest.test.model.*;
 
 /**
  *
@@ -20,7 +19,7 @@ public class MyFirstRestTest {
     private static final String BASE_URL = "http://localhost:8080/librarytest/rest/";
     public MyFirstRestTest() {
     }
-    /* Previous code
+    ///* Previous code
     @Test
     public void testFetchBook(){
         Book book = given().accept(ContentType.JSON).get(BASE_URL + "books/4").jsonPath().getObject("book", Book.class);
@@ -38,7 +37,7 @@ public class MyFirstRestTest {
         System.out.println("Status code: " + response.getStatusCode()); 
     }
     
-    
+    /****
     @Test
     public void testFetchBook(){
         Response response = new BookOperations().getBook(3);
@@ -88,4 +87,5 @@ public class MyFirstRestTest {
         
     }
         */
+    
 }
